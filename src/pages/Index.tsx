@@ -9,60 +9,62 @@ import FeaturePopup from "@/components/FeaturePopup";
 import { 
   Heart, Shield, FilePlus, Share2, Activity, ArrowRight, ChevronRight, 
   Calendar, Stethoscope, Calculator, Database, Utensils, BookOpen, 
-  TrendingUp, BarChart2 
+  TrendingUp, BarChart2, Cpu, Bot, Zap, BrainCircuit, LineChart, Scan
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// Animated hero features
 const features = [{
-  title: "Schedule Appointments",
-  description: "Book and manage your medical appointments with ease.",
-  icon: <Calendar className="h-6 w-6" />
+  title: "AI-Powered Analytics",
+  description: "Get intelligent insights from your health data.",
+  icon: <BrainCircuit className="h-6 w-6 text-medbot-cyan" />
 }, {
-  title: "Access Medical Records",
-  description: "View and share your complete medical history securely.",
-  icon: <FilePlus className="h-6 w-6" />
+  title: "Voice Assistant",
+  description: "Control the app with simple voice commands.",
+  icon: <Bot className="h-6 w-6 text-medbot-cyan" />
 }, {
-  title: "Connect with Doctors",
-  description: "Communicate directly with your healthcare providers.",
-  icon: <Stethoscope className="h-6 w-6" />
+  title: "Health Predictions",
+  description: "Advanced ML algorithms predict potential health issues.",
+  icon: <LineChart className="h-6 w-6 text-medbot-cyan" />
 }];
 
+// App features with detailed popups
 const healthFeatures = [
   {
     id: 1,
     title: "BMI Calculator",
-    description: "Instantly calculate your Body Mass Index to track your fitness journey.",
-    icon: <Calculator className="h-6 w-6 text-healthcare-600" />
+    description: "Instantly calculate your Body Mass Index to track your fitness journey. Our AI algorithms provide personalized recommendations based on your results and health history.",
+    icon: <Calculator className="h-6 w-6 text-medbot-cyan" />
   },
   {
     id: 2,
     title: "Health Data Storage",
-    description: "Securely store and access all your health records in one place.",
-    icon: <Database className="h-6 w-6 text-healthcare-600" />
+    description: "Securely store and access all your health records in one place. Military-grade encryption keeps your sensitive information safe while making it instantly accessible when needed.",
+    icon: <Database className="h-6 w-6 text-medbot-cyan" />
   },
   {
     id: 3,
     title: "Nutrition Planner",
-    description: "Personalized diet recommendations for your health goals.",
-    icon: <Utensils className="h-6 w-6 text-healthcare-600" />
+    description: "Personalized diet recommendations for your health goals. Our AI analyzes your preferences, restrictions, and health metrics to create the perfect nutrition plan for you.",
+    icon: <Utensils className="h-6 w-6 text-medbot-cyan" />
   },
   {
     id: 4,
     title: "Health Explore Page",
-    description: "Discover articles, advice, and wellness tips for a healthier life.",
-    icon: <BookOpen className="h-6 w-6 text-healthcare-600" />
+    description: "Discover articles, advice, and wellness tips for a healthier life. Content is curated based on your interests and health profile, ensuring relevant information.",
+    icon: <BookOpen className="h-6 w-6 text-medbot-cyan" />
   },
   {
     id: 5,
     title: "Streak Counter",
-    description: "Stay motivated by tracking your healthy habits streaks.",
-    icon: <TrendingUp className="h-6 w-6 text-healthcare-600" />
+    description: "Stay motivated by tracking your healthy habits streaks. Gamification elements and AI-powered reminders help you maintain consistency in your wellness journey.",
+    icon: <TrendingUp className="h-6 w-6 text-medbot-cyan" />
   },
   {
     id: 6,
     title: "Graphical Analysis",
-    description: "Visualize your health progress through beautiful and informative charts.",
-    icon: <BarChart2 className="h-6 w-6 text-healthcare-600" />
+    description: "Visualize your health progress through beautiful and informative charts. Advanced data visualization makes complex health metrics easy to understand and track over time.",
+    icon: <BarChart2 className="h-6 w-6 text-medbot-cyan" />
   }
 ];
 
@@ -70,6 +72,8 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeFeature, setActiveFeature] = useState(0);
   const [selectedFeature, setSelectedFeature] = useState<null | number>(null);
+  const [typingText, setTypingText] = useState("");
+  const fullText = "Your Health, Now Enhanced With AI.";
   
   useEffect(() => {
     const user = localStorage.getItem("verolix-user");
@@ -83,11 +87,25 @@ export default function Index() {
     }
   }, [navigate]);
   
+  // Animated features carousel
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveFeature(prev => (prev + 1) % features.length);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+  
+  // Typing effect for hero headline
+  useEffect(() => {
+    let i = 0;
+    const typing = setInterval(() => {
+      setTypingText(fullText.substring(0, i));
+      i++;
+      if (i > fullText.length) {
+        clearInterval(typing);
+      }
+    }, 100);
+    return () => clearInterval(typing);
   }, []);
   
   // Handle popup open/close
@@ -102,36 +120,74 @@ export default function Index() {
   // Find the currently selected feature
   const currentFeature = healthFeatures.find(feature => feature.id === selectedFeature);
   
-  return <div className="flex flex-col min-h-screen">
+  return <div className="flex flex-col min-h-screen bg-medbot-black">
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-healthcare-800 to-healthcare-600 text-white py-16 md:py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] opacity-10 bg-cover bg-center" />
+        <section className="bg-gradient-to-r from-medbot-black to-[#151a36] text-medbot-silver py-20 md:py-28 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80')] opacity-5 bg-cover bg-center" />
+          
+          {/* Animated Particle/Circuit Effect */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute h-px w-32 bg-medbot-cyan/50 top-1/4 left-1/4 animate-pulse-subtle" style={{animationDelay: '0.2s'}}></div>
+            <div className="absolute h-px w-48 bg-medbot-violet/30 top-1/3 right-1/3 animate-pulse-subtle" style={{animationDelay: '0.5s'}}></div>
+            <div className="absolute h-px w-24 bg-medbot-cyan/40 bottom-1/4 left-1/3 animate-pulse-subtle" style={{animationDelay: '0.8s'}}></div>
+            <div className="absolute h-px w-64 bg-medbot-violet/20 bottom-1/3 right-1/4 animate-pulse-subtle" style={{animationDelay: '1.1s'}}></div>
+            <div className="absolute h-32 w-px bg-medbot-cyan/30 top-1/4 left-2/3 animate-pulse-subtle" style={{animationDelay: '0.3s'}}></div>
+            <div className="absolute h-48 w-px bg-medbot-violet/20 top-1/2 left-1/4 animate-pulse-subtle" style={{animationDelay: '0.6s'}}></div>
+            <div className="absolute h-24 w-px bg-medbot-cyan/40 bottom-1/3 right-1/3 animate-pulse-subtle" style={{animationDelay: '0.9s'}}></div>
+            <div className="absolute h-64 w-px bg-medbot-violet/30 bottom-1/4 right-2/3 animate-pulse-subtle" style={{animationDelay: '1.2s'}}></div>
+          </div>
+          
           <div className="container mx-auto px-4 relative">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 mb-10 md:mb-0 md:pr-10">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
-                  Your Health Records, <span className="text-healthcare-200">Simplified</span>
+                <div className="inline-flex items-center text-xs text-medbot-silver bg-medbot-black/50 border border-medbot-violet px-3 py-1 rounded-full mb-6">
+                  <Bot className="mr-2 h-3 w-3 text-medbot-cyan" />
+                  <span>MedBot AI Technology</span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-medbot-silver">
+                  {typingText}<span className="text-medbot-cyan animate-pulse">|</span>
                 </h1>
-                <p className="text-lg md:text-xl mb-8 text-healthcare-50">
-                  Verolix connects patients and doctors through seamless health record management.
+                <p className="text-lg md:text-xl mb-8 text-medbot-silver/80">
+                  Verolix connects patients and doctors through AI-powered health management and analytics.
                 </p>
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                  <Button size="lg" className="bg-white text-healthcare-700 hover:bg-healthcare-100 group transition-all duration-300" onClick={() => document.getElementById("auth-section")?.scrollIntoView({
-                  behavior: "smooth"
-                })}>
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                  <Button 
+                    size="lg" 
+                    className="neon-button group transition-all duration-300 flex items-center gap-2" 
+                    onClick={() => document.getElementById("auth-section")?.scrollIntoView({
+                      behavior: "smooth"
+                    })}
+                  >
+                    <span>Get Started</span>
+                    <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                   </Button>
                   
+                  <Button
+                    size="lg"
+                    className="violet-button group flex items-center gap-2"
+                  >
+                    <Scan className="h-4 w-4" />
+                    <span>See Demo</span>
+                  </Button>
                 </div>
               </div>
               <div className="md:w-1/2">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-healthcare-600/20 to-healthcare-800/20 rounded-lg" />
-                  <div className="bg-white p-5 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=870" alt="Doctor and patient discussing health records" className="w-full h-auto rounded" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-medbot-violet/10 to-medbot-cyan/10 rounded-lg" />
+                  <div className="glass-card p-5 rounded-lg animate-float">
+                    <div className="relative">
+                      <img 
+                        src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=870" 
+                        alt="Doctor using AI technology with patient" 
+                        className="w-full h-auto rounded opacity-90" 
+                      />
+                      <div className="absolute top-3 right-3 bg-medbot-black/70 px-3 py-1 rounded-full text-xs text-medbot-cyan border border-medbot-cyan flex items-center">
+                        <Zap className="h-3 w-3 mr-1" />
+                        AI-Enhanced
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -139,62 +195,80 @@ export default function Index() {
 
             {/* Animated Features List */}
             <div className="mt-16 max-w-2xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
-                {features.map((feature, index) => <div key={index} className={`flex items-center space-x-4 py-3 ${index === activeFeature ? 'opacity-100' : 'opacity-60'} transition-opacity duration-300`}>
-                    <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
+              <div className="glass-card rounded-xl p-6 transform hover:scale-105 transition-all duration-300 border border-glass-border">
+                <h3 className="text-center text-medbot-cyan font-semibold mb-4 text-lg">Smart Features</h3>
+                {features.map((feature, index) => (
+                  <div key={index} className={`flex items-center space-x-4 py-3 ${index === activeFeature ? 'opacity-100' : 'opacity-60'} transition-opacity duration-300`}>
+                    <div className="h-10 w-10 rounded-full bg-medbot-black/70 border border-medbot-violet flex items-center justify-center">
                       {feature.icon}
                     </div>
                     <div>
-                      <h3 className="font-semibold">{feature.title}</h3>
-                      <p className="text-sm text-healthcare-50">{feature.description}</p>
+                      <h3 className="font-semibold text-medbot-silver">{feature.title}</h3>
+                      <p className="text-sm text-medbot-silver/70">{feature.description}</p>
                     </div>
-                    <ChevronRight className={`ml-auto h-5 w-5 transform transition-transform duration-300 ${index === activeFeature ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`} />
-                  </div>)}
+                    <ChevronRight className={`ml-auto h-5 w-5 text-medbot-cyan transform transition-transform duration-300 ${index === activeFeature ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
         {/* BMI Calculator Section */}
-        <section className="py-16 bg-healthcare-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Check Your BMI
+        <section className="py-16 bg-medbot-black/90 relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute h-px w-64 bg-medbot-cyan/10 top-1/3 left-1/5 animate-pulse-subtle" style={{animationDelay: '0.7s'}}></div>
+            <div className="absolute h-px w-96 bg-medbot-violet/10 bottom-1/4 right-1/6 animate-pulse-subtle" style={{animationDelay: '1.3s'}}></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="text-center mb-12 reveal">
+              <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-cyan/30">
+                <Calculator className="h-8 w-8 text-medbot-cyan animate-pulse-subtle" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">
+                AI-Powered <span className="text-medbot-cyan">BMI Analysis</span>
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Use our BMI calculator to check your body mass index and get instant results
+              <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
+                Use our smart BMI calculator to check your body mass index and get AI-generated health recommendations
               </p>
             </div>
-            <BMICalculator />
+            <div className="glass-card p-6 rounded-lg border border-glass-border reveal reveal-delay-1">
+              <BMICalculator />
+            </div>
           </div>
         </section>
         
         {/* App Features Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <div className="inline-block p-3 bg-healthcare-100 rounded-full mb-4">
-                <Heart className="h-8 w-8 text-healthcare-600" />
+        <section className="py-16 bg-medbot-black relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute h-48 w-px bg-medbot-violet/10 top-1/4 left-1/3 animate-pulse-subtle" style={{animationDelay: '0.4s'}}></div>
+            <div className="absolute h-64 w-px bg-medbot-cyan/10 bottom-1/3 right-1/2 animate-pulse-subtle" style={{animationDelay: '1.0s'}}></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="text-center mb-12 reveal">
+              <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-violet/30">
+                <Cpu className="h-8 w-8 text-medbot-violet animate-pulse-subtle" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Verolix Features</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Discover the powerful tools designed to simplify your healthcare journey
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">Verolix <span className="text-medbot-cyan">MedBot</span> Features</h2>
+              <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
+                Discover the AI-powered tools designed to revolutionize your healthcare experience
               </p>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {healthFeatures.map((feature) => (
+              {healthFeatures.map((feature, index) => (
                 <div 
                   key={feature.id}
                   onClick={() => openFeaturePopup(feature.id)}
-                  className="bg-healthcare-50 hover:bg-healthcare-100 p-6 rounded-lg shadow-sm cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md group"
+                  className={`feature-card p-6 cursor-pointer reveal reveal-delay-${index % 4 + 1}`}
                 >
-                  <div className="h-12 w-12 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                  <div className="feature-icon h-12 w-12 rounded-full flex items-center justify-center mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold text-healthcare-800 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm">Click to learn more</p>
+                  <h3 className="text-xl font-semibold text-medbot-cyan mb-2">{feature.title}</h3>
+                  <p className="text-medbot-silver/70 text-sm">Click to learn more</p>
                 </div>
               ))}
             </div>
@@ -213,76 +287,80 @@ export default function Index() {
         </section>
 
         {/* Features Tabs Section */}
-        <section className="py-16 bg-healthcare-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Verolix</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Experience the future of healthcare management with our comprehensive features.
+        <section className="py-16 bg-medbot-black/80 relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute h-px w-80 bg-medbot-cyan/10 top-1/5 left-1/2 animate-pulse-subtle" style={{animationDelay: '0.5s'}}></div>
+            <div className="absolute h-72 w-px bg-medbot-violet/10 bottom-1/6 right-1/4 animate-pulse-subtle" style={{animationDelay: '1.1s'}}></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="text-center mb-12 reveal">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">Why Choose <span className="text-medbot-cyan">Verolix</span></h2>
+              <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
+                Experience the future of healthcare management with our comprehensive AI-enhanced features
               </p>
             </div>
 
-            <Tabs defaultValue="security" className="max-w-4xl mx-auto">
-              <TabsList className="grid grid-cols-4 mb-8">
-                <TabsTrigger value="security" className="flex items-center">
+            <Tabs defaultValue="security" className="max-w-4xl mx-auto reveal reveal-delay-1">
+              <TabsList className="grid grid-cols-4 mb-8 bg-medbot-black/50 border border-glass-border">
+                <TabsTrigger value="security" className="flex items-center data-[state=active]:bg-medbot-black data-[state=active]:text-medbot-cyan">
                   <Shield className="mr-2 h-4 w-4" />
                   Security
                 </TabsTrigger>
-                <TabsTrigger value="upload">
+                <TabsTrigger value="upload" className="data-[state=active]:bg-medbot-black data-[state=active]:text-medbot-cyan">
                   <FilePlus className="mr-2 h-4 w-4" />
                   Easy Upload
                 </TabsTrigger>
-                <TabsTrigger value="sharing">
+                <TabsTrigger value="sharing" className="data-[state=active]:bg-medbot-black data-[state=active]:text-medbot-cyan">
                   <Share2 className="mr-2 h-4 w-4" />
                   Sharing
                 </TabsTrigger>
-                <TabsTrigger value="history">
+                <TabsTrigger value="history" className="data-[state=active]:bg-medbot-black data-[state=active]:text-medbot-cyan">
                   <Activity className="mr-2 h-4 w-4" />
                   History
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="security" className="space-y-4">
-                <div className="bg-healthcare-50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg">
-                  <h3 className="text-xl font-bold mb-4">Bank-Level Security</h3>
-                  <p className="text-gray-600">
+                <div className="glass-card p-6 transition-all duration-300 hover:border-medbot-cyan">
+                  <h3 className="text-xl font-bold mb-4 text-medbot-cyan">Quantum-Level Security</h3>
+                  <p className="text-medbot-silver">
                     Your health data is protected with state-of-the-art encryption and security measures. We employ the same security standards used by leading financial institutions.
                   </p>
                   <ul className="mt-4 space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <Shield className="h-5 w-5 mr-2 text-healthcare-600" />
-                      End-to-end encryption
+                    <li className="flex items-center text-medbot-silver">
+                      <Shield className="h-5 w-5 mr-2 text-medbot-cyan" />
+                      End-to-end quantum encryption
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Shield className="h-5 w-5 mr-2 text-healthcare-600" />
-                      Regular security audits
+                    <li className="flex items-center text-medbot-silver">
+                      <Shield className="h-5 w-5 mr-2 text-medbot-cyan" />
+                      Regular AI-powered security audits
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Shield className="h-5 w-5 mr-2 text-healthcare-600" />
-                      HIPAA compliant storage
+                    <li className="flex items-center text-medbot-silver">
+                      <Shield className="h-5 w-5 mr-2 text-medbot-cyan" />
+                      HIPAA compliant biometric storage
                     </li>
                   </ul>
                 </div>
               </TabsContent>
 
-              {/* Add similar detailed content for other tabs */}
               <TabsContent value="upload" className="space-y-4">
-                <div className="bg-healthcare-50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg">
-                  <h3 className="text-xl font-bold mb-4">Effortless Document Uploads</h3>
-                  <p className="text-gray-600">
+                <div className="glass-card p-6 transition-all duration-300 hover:border-medbot-cyan">
+                  <h3 className="text-xl font-bold mb-4 text-medbot-cyan">Effortless Document Uploads</h3>
+                  <p className="text-medbot-silver">
                     Quickly and easily upload your medical records, prescriptions, and test results. Our intuitive interface makes managing your documents a breeze.
                   </p>
                   <ul className="mt-4 space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <FilePlus className="h-5 w-5 mr-2 text-healthcare-600" />
-                      Drag-and-drop functionality
+                    <li className="flex items-center text-medbot-silver">
+                      <FilePlus className="h-5 w-5 mr-2 text-medbot-cyan" />
+                      AI-powered document recognition
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <FilePlus className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <FilePlus className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Support for multiple file formats
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <FilePlus className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <FilePlus className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Automatic file categorization
                     </li>
                   </ul>
@@ -290,22 +368,22 @@ export default function Index() {
               </TabsContent>
 
               <TabsContent value="sharing" className="space-y-4">
-                <div className="bg-healthcare-50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg">
-                  <h3 className="text-xl font-bold mb-4">Secure Record Sharing</h3>
-                  <p className="text-gray-600">
+                <div className="glass-card p-6 transition-all duration-300 hover:border-medbot-cyan">
+                  <h3 className="text-xl font-bold mb-4 text-medbot-cyan">Secure Record Sharing</h3>
+                  <p className="text-medbot-silver">
                     Instantly share your medical records with healthcare providers using your unique patient ID. Control who has access to your information.
                   </p>
                   <ul className="mt-4 space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <Share2 className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <Share2 className="h-5 w-5 mr-2 text-medbot-cyan" />
                       One-click sharing with doctors
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Share2 className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <Share2 className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Customizable permission levels
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Share2 className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <Share2 className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Access logs to monitor activity
                     </li>
                   </ul>
@@ -313,23 +391,23 @@ export default function Index() {
               </TabsContent>
               
               <TabsContent value="history" className="space-y-4">
-                <div className="bg-healthcare-50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg">
-                  <h3 className="text-xl font-bold mb-4">Complete Health History</h3>
-                  <p className="text-gray-600">
+                <div className="glass-card p-6 transition-all duration-300 hover:border-medbot-cyan">
+                  <h3 className="text-xl font-bold mb-4 text-medbot-cyan">Complete Health History</h3>
+                  <p className="text-medbot-silver">
                     Maintain a comprehensive record of your health journey, including visits, diagnoses, medications, and test results over time.
                   </p>
                   <ul className="mt-4 space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <Activity className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <Activity className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Lifetime health timeline
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Activity className="h-5 w-5 mr-2 text-healthcare-600" />
+                    <li className="flex items-center text-medbot-silver">
+                      <Activity className="h-5 w-5 mr-2 text-medbot-cyan" />
                       Advanced search capabilities
                     </li>
-                    <li className="flex items-center text-gray-700">
-                      <Activity className="h-5 w-5 mr-2 text-healthcare-600" />
-                      Health trend analysis
+                    <li className="flex items-center text-medbot-silver">
+                      <Activity className="h-5 w-5 mr-2 text-medbot-cyan" />
+                      AI-powered health trend analysis
                     </li>
                   </ul>
                 </div>
@@ -339,14 +417,24 @@ export default function Index() {
         </section>
 
         {/* Auth Section */}
-        <section id="auth-section" className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-md mx-auto">
+        <section id="auth-section" className="py-16 bg-medbot-black relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute h-px w-64 bg-medbot-violet/10 top-1/4 right-1/3 animate-pulse-subtle" style={{animationDelay: '0.8s'}}></div>
+            <div className="absolute h-48 w-px bg-medbot-cyan/10 bottom-1/4 left-2/3 animate-pulse-subtle" style={{animationDelay: '1.4s'}}></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-md mx-auto reveal">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Get Started Today</h2>
-                <p className="text-gray-600">Create an account or log in to access your health records</p>
+                <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-cyan/30">
+                  <Bot className="h-8 w-8 text-medbot-cyan animate-pulse-subtle" />
+                </div>
+                <h2 className="text-3xl font-bold mb-4 text-medbot-silver">Start Your <span className="text-medbot-cyan">AI</span> Journey</h2>
+                <p className="text-medbot-silver/80">Create an account or log in to access your health dashboard</p>
               </div>
-              <AuthForm />
+              <div className="glass-card p-8 border border-glass-border hover:border-medbot-violet/50 transition-colors duration-300">
+                <AuthForm />
+              </div>
             </div>
           </div>
         </section>
