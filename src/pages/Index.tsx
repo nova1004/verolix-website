@@ -12,6 +12,7 @@ import {
   TrendingUp, BarChart2, Cpu, Bot, Zap, BrainCircuit, LineChart, Scan
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AnimateText from "@/utils/textAnimator";
 
 // Animated hero features
 const features = [{
@@ -141,18 +142,26 @@ export default function Index() {
           
           <div className="container mx-auto px-4 relative">
             <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+              <div className="md:w-1/2 mb-10 md:mb-0 md:pr-10 text-center md:text-left">
                 <div className="inline-flex items-center text-xs text-medbot-silver bg-medbot-black/50 border border-medbot-violet px-3 py-1 rounded-full mb-6">
                   <Bot className="mr-2 h-3 w-3 text-medbot-cyan" />
                   <span>MedBot AI Technology</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-medbot-silver">
-                  {typingText}<span className="text-medbot-cyan animate-pulse">|</span>
-                </h1>
+                
+                {/* Animate text with proper wrapping */}
+                <div className="max-w-full">
+                  <AnimateText 
+                    text="Your Health, Now Enhanced With <span class='text-medbot-cyan'>AI.</span>" 
+                    tagName="h1" 
+                    className="text-4xl md:text-5xl font-bold mb-6 text-medbot-silver normal-case break-words text-center md:text-left whitespace-normal"
+                    preserveSpans={true}
+                  />
+                </div>
+                
                 <p className="text-lg md:text-xl mb-8 text-medbot-silver/80">
                   Verolix connects patients and doctors through AI-powered health management and analytics.
                 </p>
-                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
                   <Button 
                     size="lg" 
                     className="neon-button group transition-all duration-300 flex items-center gap-2" 
@@ -162,14 +171,6 @@ export default function Index() {
                   >
                     <span>Get Started</span>
                     <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  
-                  <Button
-                    size="lg"
-                    className="violet-button group flex items-center gap-2"
-                  >
-                    <Scan className="h-4 w-4" />
-                    <span>See Demo</span>
                   </Button>
                 </div>
               </div>
@@ -226,9 +227,14 @@ export default function Index() {
               <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-cyan/30">
                 <Calculator className="h-8 w-8 text-medbot-cyan animate-pulse-subtle" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">
-                AI-Powered <span className="text-medbot-cyan">BMI Analysis</span>
-              </h2>
+              
+              <AnimateText 
+                text="AI-Powered <span class='text-medbot-cyan'>BMI Analysis</span>" 
+                tagName="h2" 
+                className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver"
+                preserveSpans={true}
+              />
+              
               <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
                 Use our smart BMI calculator to check your body mass index and get AI-generated health recommendations
               </p>
@@ -251,7 +257,14 @@ export default function Index() {
               <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-violet/30">
                 <Cpu className="h-8 w-8 text-medbot-violet animate-pulse-subtle" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">Verolix <span className="text-medbot-cyan">MedBot</span> Features</h2>
+              
+              <AnimateText 
+                text="Verolix <span class='text-medbot-cyan'>MedBot</span> Features" 
+                tagName="h2" 
+                className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver"
+                preserveSpans={true}
+              />
+              
               <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
                 Discover the AI-powered tools designed to revolutionize your healthcare experience
               </p>
@@ -295,7 +308,13 @@ export default function Index() {
           
           <div className="container mx-auto px-4 relative">
             <div className="text-center mb-12 reveal">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver">Why Choose <span className="text-medbot-cyan">Verolix</span></h2>
+              <AnimateText 
+                text="Why Choose <span class='text-medbot-cyan'>Verolix</span>" 
+                tagName="h2" 
+                className="text-3xl md:text-4xl font-bold mb-4 text-medbot-silver"
+                preserveSpans={true}
+              />
+              
               <p className="text-lg text-medbot-silver/80 max-w-3xl mx-auto">
                 Experience the future of healthcare management with our comprehensive AI-enhanced features
               </p>
@@ -429,7 +448,14 @@ export default function Index() {
                 <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-cyan/30">
                   <Bot className="h-8 w-8 text-medbot-cyan animate-pulse-subtle" />
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-medbot-silver">Start Your <span className="text-medbot-cyan">AI</span> Journey</h2>
+                
+                <AnimateText 
+                  text="Start Your <span class='text-medbot-cyan'>AI</span> Journey" 
+                  tagName="h2" 
+                  className="text-3xl font-bold mb-4 text-medbot-silver"
+                  preserveSpans={true}
+                />
+                
                 <p className="text-medbot-silver/80">Create an account or log in to access your health dashboard</p>
               </div>
               <div className="glass-card p-8 border border-glass-border hover:border-medbot-violet/50 transition-colors duration-300">

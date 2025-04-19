@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LogOut, Menu, X, User, FileText, Home, Info, Phone, Download, ArrowUp, Bot, Zap } from "lucide-react";
+import { LogOut, Menu, X, User, FileText, Home, Info, Phone, Download, ArrowUp, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import useCustomCursor from "@/hooks/use-cursor";
 
@@ -188,7 +188,6 @@ export default function Navbar() {
               >
                 <Bot className="h-4 w-4" />
                 <span>Login / Sign Up</span>
-                <Zap className="h-4 w-4" />
               </Button>
             )}
           </div>
@@ -316,7 +315,6 @@ export default function Navbar() {
                   >
                     <Bot className="h-4 w-4" />
                     <span>Login / Sign Up</span>
-                    <Zap className="h-4 w-4" />
                   </Button>
                 </div>
               )}

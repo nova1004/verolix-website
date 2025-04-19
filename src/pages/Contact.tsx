@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Bot, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimateText from "@/utils/textAnimator";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -77,9 +78,14 @@ export default function Contact() {
           <div className="inline-block p-3 glass-card rounded-full mb-4 border border-medbot-cyan/30">
             <Bot className="h-10 w-10 text-medbot-cyan animate-pulse-subtle" />
           </div>
-          <h1 className="text-5xl font-bold text-medbot-silver mb-6 animate-typing">
-            Connect <span className="text-medbot-cyan">With Us</span>
-          </h1>
+          
+          <AnimateText 
+            text="Connect <span class='text-medbot-cyan'>With Us</span>" 
+            tagName="h1" 
+            className="text-5xl font-bold text-medbot-silver mb-6"
+            preserveSpans={true}
+          />
+          
           <p className="text-xl text-medbot-silver/80 max-w-2xl mx-auto">
             Get in touch with our AI-assisted team for support or inquiries
           </p>

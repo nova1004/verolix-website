@@ -1,9 +1,36 @@
 import { Link } from "react-router-dom";
-import { Heart, Bot, Activity, Cpu } from "lucide-react";
+import { Heart, Bot, Activity, Cpu, ArrowUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Function to scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  // Show/hide scroll to top button based on scroll position
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
   return (
-    <footer className="bg-medbot-black border-t border-glass-border py-8 mt-auto">
+    <footer className="bg-medbot-black border-t border-glass-border py-8 mt-auto relative">
+      {/* Scroll to Top Button - Removed from fixed position */}
+      
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between">
           <div className="mb-6 md:mb-0">
@@ -98,7 +125,7 @@ export default function Footer() {
           <p className="text-sm text-medbot-silver/70">
             &copy; {new Date().getFullYear()} Verolix <span className="text-medbot-cyan">MedBot</span>. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
+          <div className="mt-4 md:mt-0 flex space-x-6 items-center">
             <a href="#" className="text-medbot-silver/70 hover:text-medbot-cyan hover-glow">
               <span className="sr-only">Twitter</span>
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -117,6 +144,17 @@ export default function Footer() {
                 <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd"></path>
               </svg>
             </a>
+            
+            {/* Scroll to Top Button moved to footer */}
+            {isVisible && (
+              <button 
+                onClick={scrollToTop}
+                className="bg-medbot-black/80 text-medbot-cyan border border-medbot-cyan p-3 rounded-full hover:bg-medbot-cyan hover:text-medbot-black transition-all duration-300 animate-pulse-subtle bounce-hover ml-3"
+                aria-label="Scroll to Top"
+              >
+                <ArrowUp className="h-5 w-5" />
+              </button>
+            )}
           </div>
         </div>
       </div>

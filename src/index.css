@@ -58,6 +58,10 @@
     --cursor-size: 20px;
     --cursor-color: rgba(0, 240, 255, 0.6);
     --cursor-border: rgba(108, 92, 231, 0.8);
+    
+    /* Animated Text Variables */
+    --letter-wiggle-duration: 3s;
+    --letter-wiggle-amplitude: 2px;
   }
 
   .dark {
@@ -114,6 +118,50 @@
   /* Heading and text styles */
   h1, h2, h3, h4, h5, h6 {
     color: var(--medbot-silver);
+  }
+  
+  /* Animated wiggle text for main headings */
+  h1.animate-text, h2.animate-text, .heading-animate {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  /* Style for each individual letter */
+  .animate-text .letter, .heading-animate .letter {
+    display: inline-block;
+    position: relative;
+    animation: letterWiggle var(--letter-wiggle-duration) infinite ease-in-out;
+  }
+  
+  /* Apply different animation delays to each letter */
+  .animate-text .letter:nth-child(1n), .heading-animate .letter:nth-child(1n) {
+    animation-delay: -0.5s;
+  }
+  
+  .animate-text .letter:nth-child(2n), .heading-animate .letter:nth-child(2n) {
+    animation-delay: -1s;
+  }
+  
+  .animate-text .letter:nth-child(3n), .heading-animate .letter:nth-child(3n) {
+    animation-delay: -1.5s;
+  }
+  
+  .animate-text .letter:nth-child(4n), .heading-animate .letter:nth-child(4n) {
+    animation-delay: -2s;
+  }
+  
+  .animate-text .letter:nth-child(5n), .heading-animate .letter:nth-child(5n) {
+    animation-delay: -2.5s;
+  }
+  
+  /* Span with color that should also animate */
+  .animate-text span, .heading-animate span {
+    display: inline-block;
+  }
+  
+  .animate-text span .letter, .heading-animate span .letter {
+    color: inherit;
   }
   
   a {
@@ -400,6 +448,184 @@
   .bounce-hover:active {
     transform: scale(0.95);
   }
+
+  /* NEW MedBot Tech Animations */
+  
+  /* Glitch effect for text */
+  .glitch-text {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glitch-text::before, .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+  }
+  
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--medbot-cyan);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+  
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: 1px 0 var(--medbot-violet);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+  
+  /* Scanning line effect */
+  .scanning-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scanning-effect::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 240, 255, 0) 0%,
+      rgba(0, 240, 255, 0.2) 50%,
+      rgba(0, 240, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: scanning 3s infinite;
+  }
+  
+  /* Cyber-pulse border */
+  .cyber-border {
+    position: relative;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    margin: -1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      var(--medbot-cyan),
+      var(--medbot-violet),
+      var(--medbot-cyan)
+    );
+    animation: cyber-border-pulse 3s infinite linear;
+  }
+  
+  /* Hologram flicker */
+  .hologram-flicker {
+    animation: hologram-flicker 6s infinite;
+  }
+  
+  /* Radial expand on hover */
+  .radial-expand {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .radial-expand::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(
+      circle,
+      rgba(0, 240, 255, 0.4) 0%,
+      rgba(0, 240, 255, 0) 70%
+    );
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    z-index: -1;
+    border-radius: 50%;
+  }
+  
+  .radial-expand:hover::after {
+    width: 200%;
+    height: 200%;
+  }
+  
+  /* Neon text pulse */
+  .neon-text-pulse {
+    color: var(--medbot-cyan);
+    text-shadow: 0 0 5px var(--medbot-cyan);
+    animation: neon-text-pulse 2s infinite;
+  }
+  
+  /* Data flow background */
+  .data-flow-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .data-flow-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(0, 240, 255, 0),
+      rgba(0, 240, 255, 0) 20px,
+      rgba(0, 240, 255, 0.1) 20px,
+      rgba(0, 240, 255, 0.1) 40px
+    );
+    animation: data-flow 8s linear infinite;
+    z-index: -1;
+  }
+  
+  /* Shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shimmer 3s infinite;
+  }
+  
+  /* 3D rotate hover effect */
+  .rotate-3d {
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .rotate-3d:hover {
+    transform: rotateY(15deg) rotateX(5deg);
+  }
 }
 
 /* Animations keyframes */
@@ -510,5 +736,170 @@
   }
   50% {
     transform: translateY(-5px);
+  }
+}
+
+/* Letter wiggle animation */
+@keyframes letterWiggle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(calc(var(--letter-wiggle-amplitude) * -1));
+  }
+  75% {
+    transform: translateY(var(--letter-wiggle-amplitude));
+  }
+}
+
+/* NEW Animation Keyframes */
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(2px, 9999px, 15px, 0);
+  }
+  10% {
+    clip: rect(28px, 9999px, 73px, 0);
+  }
+  20% {
+    clip: rect(46px, 9999px, 78px, 0);
+  }
+  30% {
+    clip: rect(8px, 9999px, 13px, 0);
+  }
+  40% {
+    clip: rect(63px, 9999px, 92px, 0);
+  }
+  50% {
+    clip: rect(30px, 9999px, 57px, 0);
+  }
+  60% {
+    clip: rect(16px, 9999px, 59px, 0);
+  }
+  70% {
+    clip: rect(23px, 9999px, 38px, 0);
+  }
+  80% {
+    clip: rect(1px, 9999px, 4px, 0);
+  }
+  90% {
+    clip: rect(18px, 9999px, 53px, 0);
+  }
+  100% {
+    clip: rect(31px, 9999px, 76px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(62px, 9999px, 89px, 0);
+  }
+  10% {
+    clip: rect(31px, 9999px, 36px, 0);
+  }
+  20% {
+    clip: rect(5px, 9999px, 36px, 0);
+  }
+  30% {
+    clip: rect(56px, 9999px, 59px, 0);
+  }
+  40% {
+    clip: rect(12px, 9999px, 23px, 0);
+  }
+  50% {
+    clip: rect(45px, 9999px, 56px, 0);
+  }
+  60% {
+    clip: rect(67px, 9999px, 98px, 0);
+  }
+  70% {
+    clip: rect(32px, 9999px, 64px, 0);
+  }
+  80% {
+    clip: rect(15px, 9999px, 29px, 0);
+  }
+  90% {
+    clip: rect(60px, 9999px, 74px, 0);
+  }
+  100% {
+    clip: rect(20px, 9999px, 66px, 0);
+  }
+}
+
+@keyframes scanning {
+  0% {
+    top: -150%;
+  }
+  100% {
+    top: 150%;
+  }
+}
+
+@keyframes cyber-border-pulse {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes hologram-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  20% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.7;
+  }
+  65% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  75%, 95% {
+    opacity: 1;
+  }
+}
+
+@keyframes neon-text-pulse {
+  0%, 100% {
+    text-shadow: 0 0 5px var(--medbot-cyan), 0 0 10px var(--medbot-cyan);
+  }
+  50% {
+    text-shadow: 0 0 15px var(--medbot-cyan), 0 0 30px var(--medbot-cyan), 0 0 40px var(--medbot-cyan);
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: rotate(30deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(30deg) translateX(100%);
   }
 }
