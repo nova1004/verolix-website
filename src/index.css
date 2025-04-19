@@ -53,6 +53,11 @@
     --glass-border: rgba(216, 227, 231, 0.2);
     --glass-shadow: 0 8px 32px rgba(0, 240, 255, 0.1);
     --glass-blur: blur(12px);
+    
+    /* Custom Cursor Variables */
+    --cursor-size: 20px;
+    --cursor-color: rgba(0, 240, 255, 0.6);
+    --cursor-border: rgba(108, 92, 231, 0.8);
   }
 
   .dark {
@@ -103,6 +108,7 @@
     @apply bg-background text-foreground;
     background-color: var(--medbot-black);
     color: var(--medbot-silver);
+    cursor: none; /* Hide the default cursor when custom cursor is active */
   }
 
   /* Heading and text styles */
@@ -117,6 +123,64 @@
   
   a:hover {
     text-shadow: var(--medbot-glow);
+  }
+  
+  /* 1. Image Grayscale Effect - Add grayscale filter to all images by default */
+  img {
+    filter: grayscale(100%);
+    transition: filter 0.6s ease-in-out;
+  }
+  
+  /* Image turns colorful on hover */
+  img:hover {
+    filter: grayscale(0%);
+  }
+  
+  /* Custom cursor elements */
+  .cursor-dot {
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    background-color: var(--cursor-color);
+    border: 2px solid var(--cursor-border);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    backdrop-filter: blur(1px);
+  }
+  
+  .cursor-outline {
+    width: calc(var(--cursor-size) * 2);
+    height: calc(var(--cursor-size) * 2);
+    border: 1px solid var(--cursor-border);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+    transition: transform 0.2s ease-out, width 0.3s, height 0.3s;
+    mix-blend-mode: difference;
+  }
+  
+  /* Make cursor larger when hovering over links or buttons */
+  a:hover ~ .cursor-dot,
+  button:hover ~ .cursor-dot,
+  input:hover ~ .cursor-dot,
+  textarea:hover ~ .cursor-dot {
+    width: calc(var(--cursor-size) * 1.5);
+    height: calc(var(--cursor-size) * 1.5);
+    background-color: transparent;
+  }
+  
+  a:hover ~ .cursor-outline,
+  button:hover ~ .cursor-outline,
+  input:hover ~ .cursor-outline,
+  textarea:hover ~ .cursor-outline {
+    width: calc(var(--cursor-size) * 3);
+    height: calc(var(--cursor-size) * 3);
+    border-color: var(--medbot-cyan);
   }
 }
 
@@ -209,6 +273,37 @@
     background: linear-gradient(135deg, var(--medbot-cyan), var(--medbot-dark-cyan));
     transform: scale(1.1);
   }
+  
+  /* 2. Navigation Animation - Bouncy navigation links */
+  .nav-link {
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy effect with cubic-bezier */
+  }
+  
+  .nav-link:hover {
+    transform: scale(1.1);
+  }
+  
+  .nav-link:active {
+    transform: scale(0.95);
+  }
+  
+  /* Underline effect for nav links */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--medbot-cyan);
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+    box-shadow: 0 0 8px var(--medbot-cyan);
+  }
 }
 
 /* Animation utilities */
@@ -291,6 +386,19 @@
   
   .reveal-delay-4 {
     transition-delay: 0.4s;
+  }
+  
+  /* Bouncy animation for nav elements */
+  .bounce-hover {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .bounce-hover:hover {
+    transform: scale(1.1);
+  }
+  
+  .bounce-hover:active {
+    transform: scale(0.95);
   }
 }
 
@@ -392,5 +500,15 @@
   }
   100% {
     box-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  }
+}
+
+/* Bounce animation for navigation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
